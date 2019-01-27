@@ -1,24 +1,19 @@
-package core;
+package prototype2;
 
 import util.Util;
-import java.util.ArrayList;
 
 public class Block {
 
     private int blockID;
-    private String previousBlockHash;
+    private String previousBlockHash;//이전해쉬
     private int nonce;
-    private ArrayList<Transaction> transactionList; //거래내역 리스트
+    private String data;
 
-    public Block(int blockID, String previousBlockHash, int nonce, ArrayList transactionList) {
+    public Block(int blockID, String previousBlockHash, int nonce, String data) {
         this.blockID = blockID;
         this.previousBlockHash = previousBlockHash;
         this.nonce = nonce;
-        this.transactionList = transactionList;
-    }
-
-    public void addTransaction(Transaction transaction){
-        transactionList.add(transaction);
+        this.data = data;
     }
 
     public int getBlockID() {
@@ -45,25 +40,26 @@ public class Block {
         this.nonce = nonce;
     }
 
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
     public void getInformation(){
         System.out.println("----------------------------------------");
         System.out.println("블록 번호: " + getBlockID());
         System.out.println("이전 해시: " + getPreviousBlockHash());
         System.out.println("채굴 변수 값: " + getNonce());
-        System.out.println("트랜잭션 개수: " + transactionList.size() + "개");
-        for (Transaction transaction : transactionList) {
-            System.out.println(transaction.getInformation());
-        }
+        System.out.println("블록 데이터: " + getData());
         System.out.println("블록 해시: " + getBlockHash());
         System.out.println("----------------------------------------");
     }
 
     public String getBlockHash(){
-        StringBuilder transactionInformations = new StringBuilder();
-        for (Transaction transaction : transactionList){
-            transactionInformations.append(transaction.getInformation());
-        }
-        return Util.getHash(nonce + transactionInformations.toString() + previousBlockHash);
+        return Util.getHash(nonce + data + previousBlockHash);
     }
 
     public void mine(){
