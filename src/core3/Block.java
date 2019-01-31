@@ -1,4 +1,4 @@
-package core;
+package core3;
 
 import util.Util;
 import java.util.ArrayList;
@@ -63,6 +63,7 @@ public class Block {
         for (Transaction transaction : transactionList){
             transactionInformations.append(transaction.getInformation());
         }
+        //데이터가 아닌 거래내역으로 대체
         return Util.getHash(nonce + transactionInformations.toString() + previousBlockHash);
     }
 

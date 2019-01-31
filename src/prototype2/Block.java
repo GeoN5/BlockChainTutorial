@@ -57,11 +57,12 @@ public class Block {
         System.out.println("블록 해시: " + getBlockHash());
         System.out.println("----------------------------------------");
     }
-
+    //무결성을 위해 블록의 이전 해쉬값을 현재 블록의 해쉬키를 생성하는데 활용.
     public String getBlockHash(){
         return Util.getHash(nonce + data + previousBlockHash);
     }
 
+    //채굴 원리
     public void mine(){
         while(true){
             if(getBlockHash().substring(0,4).equals("0000")){

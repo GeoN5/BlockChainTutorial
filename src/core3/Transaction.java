@@ -1,5 +1,6 @@
-package core;
+package core3;
 
+//거래내역 관리 클래스
 public class Transaction {
 
     private String sender;
